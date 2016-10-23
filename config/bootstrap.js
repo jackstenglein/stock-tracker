@@ -9,9 +9,21 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
+var scheduler = require('node-schedule');
+
 module.exports.bootstrap = function(cb) {
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+
+
+  var trackStocksService = TrackStocksService;
+
+  var minuteJob = scheduler.scheduleJob('* * * * *', function () {
+    TrackStocksService.getStockInfo({message: "Random text"}, function (err, result) {
+      sails.log.info("Job executed")
+    });
+  });
+
   cb();
 };
