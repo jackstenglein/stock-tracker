@@ -1,6 +1,8 @@
 /**
 * Created by Jack Stenglein on 10/22/16
 */
+
+
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var TEN_DAY_MULTIPLIER = 0.1818;
 
@@ -91,6 +93,20 @@ module.exports = {
       }
 
       return ema10;
+  },
+
+  isGoldenCross: function(prevEMA10, currEMA10, prevEMA20, currEMA20) {
+    if( prevEMA10 <= prevEMA20 && currEMA10 > currEMA20 )
+      return true;
+    else
+      return false;
+  },
+
+  isDeadCross: function(prevEMA10, currEMA10, prevEMA20, currEMA20) {
+    if( prevEMA10 >= prevEMA20 && currEMA10 < currEMA20)
+      return true;
+    else
+      return false;
   },
 
   httpGetSync: function(URL) {
